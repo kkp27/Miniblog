@@ -14,8 +14,11 @@
 			<c:when test="${not empty blog}">
 				<c:forEach var="blist" items="${blog}">
 					<div class="panel panel-default">
-						<div class="panel-heading"> <strong> ${blog.blogTitle} </strong> by  ${blog.blogAuthor} </div>
-						<div class="panel-body">${blog.blogPost}</div>
+						<div class="panel-heading"> <strong> ${blist.blogTitle} </strong> by  ${blist.blogAuthor} </div>
+						<div class="panel-body">${blist.blogPost}</div>
+						<div>
+							<a href="#">Edit</a> | <a href="#">Delete</a>
+						</div>
 					</div>
 				</c:forEach>
 			</c:when>
