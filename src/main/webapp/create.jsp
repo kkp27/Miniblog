@@ -22,7 +22,7 @@
 				<textarea class="form-control" rows="10" id="blogPost" name="blogPost" required="required"></textarea>
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
-			<a href="http://localhost:8080/blog/list" class="btn btn-default" role="button">Cancel</a>
+			<a href="/blog/list" class="btn btn-default" role="button">Cancel</a>
 		</form>
 	</div>
 </body>

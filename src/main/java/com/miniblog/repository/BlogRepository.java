@@ -10,8 +10,8 @@ public interface BlogRepository extends JpaRepository<Blog, String> {
 
 	List<Blog> findByBlogTitle(String blogtitle);
 
-//	@Modifying
-//	@Query("delete from blog where blogTitle=?")
 	void delete(String title);
+
+	boolean findById(Integer id);
 	
 }

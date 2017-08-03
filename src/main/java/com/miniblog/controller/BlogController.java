@@ -50,11 +50,23 @@ public class BlogController {
 		blogrep.save(blog);
 		response.sendRedirect("/blog/list");
 	}
-	
+
+	@RequestMapping(value = "/blog/edit/{title}")
+	public ModelAndView edit(@PathVariable("title") String title) {
+		List<Blog> blog = blogrep.findByBlogTitle(title);
+		return new ModelAndView("edit", "blog", blog);
+	}
+
+	@RequestMapping(value = "/blog/update", method = RequestMethod.POST)
+	public void update(@ModelAttribute Blog blog, HttpServletResponse response) throws IOException {
+			blog.setLastModifiedDate(sdf.format(new Date()));
+			blogrep.save(blog);
+			response.sendRedirect("/blog/list");
+	}
+
 	@RequestMapping(value = "/blog/delete/{title}")
 	public void delete(@PathVariable("title") String title, HttpServletResponse response) throws IOException {
 		List<Blog> blog = blogrep.findByBlogTitle(title);
-		System.out.println(title);
 		blogrep.delete(blog);
 		response.sendRedirect("/blog/list");
 	}

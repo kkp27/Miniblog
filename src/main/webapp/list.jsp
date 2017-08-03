@@ -17,7 +17,7 @@
 						<div class="panel-heading"> <strong> ${blist.blogTitle} </strong> by  ${blist.blogAuthor} </div>
 						<div class="panel-body">${blist.blogPost}</div>
 						<div>
-							<a href="#">Edit</a> | <a href="/blog/delete/${blist.blogTitle}">Delete</a>
+							<a href="/blog/edit/${blist.blogTitle}">Edit</a> | <a href="/blog/delete/${blist.blogTitle}">Delete</a>
 						</div>
 					</div>
 				</c:forEach>
