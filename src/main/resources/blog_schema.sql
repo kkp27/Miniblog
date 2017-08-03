@@ -1,6 +1,6 @@
 CREATE TABLE blog
 (
-	id int PRIMARY KEY
+	id int NOT NULL
 	blogTitle VARCHAR(100) NOT NULL,
 	blogAuthor VARCHAR(30) NOT NULL,
 	blogPost TEXT NOT NULL
