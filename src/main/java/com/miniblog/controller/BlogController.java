@@ -22,33 +22,33 @@ import com.miniblog.repository.BlogRepository;
 public class BlogController {
 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	@Autowired
 	BlogRepository blogrep;
-	
-	@RequestMapping(value="/blog/list", method= RequestMethod.GET)
-	public ModelAndView findAll(){
+
+	@RequestMapping(value = { "/", "/blog/list" }, method = RequestMethod.GET)
+	public ModelAndView findAll() {
 		List<Blog> blog = blogrep.findAll();
-		return new ModelAndView("list","blog",blog);
+		return new ModelAndView("list", "blog", blog);
 	}
-	
-	@RequestMapping(value="/blog/create", method= RequestMethod.GET)
-	public ModelAndView create(){
+
+	@RequestMapping(value = "/blog/create", method = RequestMethod.GET)
+	public ModelAndView create() {
 		return new ModelAndView("create");
 	}
 
-	@RequestMapping(value="/blog/list/{title}", method= RequestMethod.GET)
-	public ModelAndView findByTitle(@PathVariable("title") String title ){
+	@RequestMapping(value = "/blog/list/{title}", method = RequestMethod.GET)
+	public ModelAndView findByTitle(@PathVariable("title") String title) {
 		List<Blog> blog = blogrep.findByBlogTitle(title);
-		return new ModelAndView("list","blog",blog);
+		return new ModelAndView("list", "blog", blog);
 	}
-	
-	@RequestMapping(value="/blog/save", method= RequestMethod.POST)
-	public void save(@ModelAttribute Blog blog, HttpServletResponse response) throws IOException{
+
+	@RequestMapping(value = "/blog/save", method = RequestMethod.POST)
+	public void save(@ModelAttribute Blog blog, HttpServletResponse response) throws IOException {
 		blog.setCreatedDate(sdf.format(new Date()));
 		blog.setLastModifiedDate(sdf.format(new Date()));
 		blogrep.save(blog);
 		response.sendRedirect("/blog/list");
 	}
-	
+
 }
