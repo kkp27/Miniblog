@@ -50,5 +50,13 @@ public class BlogController {
 		blogrep.save(blog);
 		response.sendRedirect("/blog/list");
 	}
+	
+	@RequestMapping(value = "/blog/delete/{title}")
+	public void delete(@PathVariable("title") String title, HttpServletResponse response) throws IOException {
+		List<Blog> blog = blogrep.findByBlogTitle(title);
+		System.out.println(title);
+		blogrep.delete(blog);
+		response.sendRedirect("/blog/list");
+	}
 
 }

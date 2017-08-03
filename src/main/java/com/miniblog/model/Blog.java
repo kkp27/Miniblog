@@ -10,8 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "blog")
 public class Blog {
+
 	@Id
-	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
