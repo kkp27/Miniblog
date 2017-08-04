@@ -59,8 +59,13 @@ public class BlogController {
 
 	@RequestMapping(value = "/blog/update", method = RequestMethod.POST)
 	public void update(@ModelAttribute Blog blog, HttpServletResponse response) throws IOException {
-			blog.setLastModifiedDate(sdf.format(new Date()));
-			blogrep.save(blog);
+			Blog obj = blogrep.findOne(blog.getBlogTitle());
+			obj.setBlogTitle(blog.getBlogTitle());
+			obj.setBlogAuthor(blog.getBlogAuthor());
+			obj.setBlogPost(blog.getBlogPost());
+			obj.setCreatedDate(blog.getCreatedDate());
+			obj.setLastModifiedDate(sdf.format(new Date()));
+			blogrep.save(obj);
 			response.sendRedirect("/blog/list");
 	}
 
