@@ -76,4 +76,8 @@ public class BlogController {
 		response.sendRedirect("/blog/list");
 	}
 
+	@RequestMapping(value = "/blog/logout", method=RequestMethod.POST)
+	public ModelAndView signout() {
+		return new ModelAndView("login");
+	}
 }
