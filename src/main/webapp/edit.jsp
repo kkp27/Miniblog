@@ -13,7 +13,7 @@
 		<h2>Edit content</h2>
 		<hr>
 		<c:forEach var="blist" items="${blog}">
-			<form method="post" action="/blog/update/${blist}">
+			<form method="post" action="/blog/update/${blist.id}">
 				<div class="form-group">
 					<label for="title">Title</label> <input type="text"
 						class="form-control" id="blogTitle" name="blogTitle"
@@ -26,12 +26,11 @@
 				</div>
 				<div class="form-group">
 					<label for="content">Post</label>
-					<div contenteditable="true" style="height: 200px" class="form-control"> ${blist.blogPost} </div>
+					<textarea class="form-control" rows="10" id="blogPost" name="blogPost" required="required"> ${blist.blogPost} </textarea>
 				</div>
 				<button type="submit" class="btn btn-default">Edit</button>
 				<a href="/blog/list" class="btn btn-default" role="button">Cancel</a>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				<input type="hidden" name="id" value="${blist.id}"/>
 			</form>
 		</c:forEach>
 	</div>

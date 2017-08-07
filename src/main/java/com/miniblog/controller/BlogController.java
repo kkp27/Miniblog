@@ -52,18 +52,15 @@ public class BlogController {
 		return new ModelAndView("edit", "blog", blog);
 	}
 
-	@RequestMapping(value = "/blog/update/{title}", method = RequestMethod.POST)
-	public String update(Blog blog, @PathVariable("title") String title) throws IOException {
-		List<Blog> obj = service.getByTitle(title);
-		System.out.println(blog);
-		for (Blog blog2 : obj) {
-			if(blog2.getBlogTitle().equals(title))
-				blog2.setBlogTitle(blog.getBlogTitle());
-				blog2.setBlogPost(blog.getBlogPost());
-				blog2.setLastModifiedDate(LocalDate.now());
-				service.save(blog2);
-				break;
-		}
+	@RequestMapping(value = "/blog/update/{id}", method = RequestMethod.POST)
+	public String update(@ModelAttribute Blog blog, @PathVariable("id") Integer id) throws IOException {
+		Blog obj = service.getOneById(id);
+//		System.out.println(blog);
+//		System.out.println(id);
+		obj.setBlogTitle(blog.getBlogTitle());
+		obj.setBlogPost(blog.getBlogPost());
+		obj.setLastModifiedDate(LocalDate.now());
+		service.save(obj);
 		return "redirect:/blog/list";
 	}
 

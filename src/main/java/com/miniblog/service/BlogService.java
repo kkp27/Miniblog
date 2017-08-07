@@ -32,5 +32,9 @@ public class BlogService  {
 		blogrep.delete(blog);
 	}
 
+	public Blog getOneById(Integer id){
+		return blogrep.getOne(id);
+	}
+	
 }
 
