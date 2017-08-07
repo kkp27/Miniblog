@@ -1,5 +1,7 @@
 package com.miniblog.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,10 +27,10 @@ public class Blog {
 	private String blogPost;
 	
 	@Column(name="createdDate")
-	private String createdDate;
+	private LocalDate createdDate;
 	
 	@Column(name="lastModifiedDate")
-	private String lastModifiedDate;
+	private LocalDate lastModifiedDate;
 
 	public Integer getId() {
 		return id;
@@ -62,19 +64,19 @@ public class Blog {
 		this.blogPost = blogPost;
 	}
 
-	public String getCreatedDate() {
+	public LocalDate getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedDate(LocalDate localDate) {
+		this.createdDate = localDate;
 	}
 
-	public String getLastModifiedDate() {
+	public LocalDate getLastModifiedDate() {
 		return lastModifiedDate;
 	}
 
-	public void setLastModifiedDate(String lastModifiedDate) {
+	public void setLastModifiedDate(LocalDate lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 

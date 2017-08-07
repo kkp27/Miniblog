@@ -11,7 +11,7 @@
 	<c:if test="${not empty message}">
 		<div class="alert alert-success" align="center">${message}</div>
 	</c:if>
-	<c:if test="${not empty error}">
+	<c:if test="${error == false}">
 		<div class="alert alert-danger" align="center">${error}</div>
 	</c:if>
 	<h2 align="center">Login</h2>
@@ -30,6 +30,7 @@
 
 			<button type="submit" class="btn btn-default">Login</button> 
 			<a href="/register" class="btn btn-default" role="button" style="margin-left: 30px">	New user </a>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</form>
 	</div>
 </body>

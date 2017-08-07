@@ -13,7 +13,7 @@
 		<h2>Edit content</h2>
 		<hr>
 		<c:forEach var="blist" items="${blog}">
-			<form method="post" action="/blog/update">
+			<form method="post" action="/blog/update/${blist}">
 				<div class="form-group">
 					<label for="title">Title</label> <input type="text"
 						class="form-control" id="blogTitle" name="blogTitle"
@@ -22,7 +22,7 @@
 				<div class="form-group">
 					<label for="author">Author</label> <input type="text"
 						class="form-control" id="blogAuthor" name="blogAuthor"
-						value="${blist.blogAuthor}" required="required">
+						value="${blist.blogAuthor}" required="required" disabled="disabled">
 				</div>
 				<div class="form-group">
 					<label for="content">Post</label>
@@ -30,6 +30,8 @@
 				</div>
 				<button type="submit" class="btn btn-default">Edit</button>
 				<a href="/blog/list" class="btn btn-default" role="button">Cancel</a>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="hidden" name="id" value="${blist.id}"/>
 			</form>
 		</c:forEach>
 	</div>

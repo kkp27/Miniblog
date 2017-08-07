@@ -3,10 +3,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>New user registration</title>
+<title>New user</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="/static/js/validate.js"></script>
+<script src="${pageContext.request.contextPath}/js/validate.js"></script>
 </head>
 <body>
 	<c:if test="${not empty error}">
@@ -38,6 +38,7 @@
 			</div>
 			<button type="submit" class="btn btn-default">Register</button>
 			<a href="/login" class="btn btn-default" role="button" style="margin-left: 30px">Cancel</a>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</form>
 	</div>
 </body>

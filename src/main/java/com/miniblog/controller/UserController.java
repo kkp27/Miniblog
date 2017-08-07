@@ -2,13 +2,15 @@ package com.miniblog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.miniblog.model.User;
 import com.miniblog.repository.UserRepository;
+import com.miniblog.service.UserService;
 
 @Controller
 public class UserController {
@@ -16,35 +18,35 @@ public class UserController {
 	@Autowired
 	UserRepository userrep;
 
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login() {
 		return "login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView loginCheck(@ModelAttribute User user) {
+	public String loginCheck(@ModelAttribute User user, Model model, @RequestParam("error") String error) {
 		User obj = userrep.findByEmail(user.getEmail());
-		if (obj == null) {
-			String error = "Invalid username or password";
-			return new ModelAndView("login", "error", error);
+		if (obj == null || error == null) {
+			model.addAttribute("error", "Invalid username or password");
+			return "redirect:/login";
 		}
-		return new ModelAndView("list");
+		return "redirect:/list";
 	}
 
-	@RequestMapping(value = "/register")
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		return "register";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerProcess(@ModelAttribute User user) {
+	public String registerProcess(User user, Model model) {
 		User obj = userrep.findByEmail(user.getEmail());
 		if (obj != null) {
-			String error = "Email already exists";
-			return new ModelAndView("register", "error", error);
+			model.addAttribute("error", "Email already exists");
+			return "redirect:/register";
 		}
-		userrep.save(user);
-		String message = "Registered successfully";
-		return new ModelAndView("login", "message", message);
+		userrep.save(obj);
+		model.addAttribute("message", "Registered successfully");
+		return "redirect:/login";
 	}
 }
