@@ -6,7 +6,7 @@
 <title>New user</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="${pageContext.request.contextPath}/js/validate.js"></script>
+<!-- <script src="../../js/validate.js"></script> -->
 </head>
 <body>
 	<c:if test="${not empty error}">
@@ -38,7 +38,7 @@
 			</div>
 			<button type="submit" class="btn btn-default">Register</button>
 			<a href="/login" class="btn btn-default" role="button" style="margin-left: 30px">Cancel</a>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<%-- 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 		</form>
 	</div>
 </body>

@@ -1,6 +1,6 @@
 CREATE TABLE user
 (
-	id int NOT NULL,
+	id PRIMARY KEY,
 	email VARCHAR(30) NOT NULL,
 	username VARCHAR(30) NOT NULL,
 	password VARCHAR(100) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE user
 
 CREATE TABLE blog
 (
-	id int NOT NULL,
+	id PRIMARY KEY,
 	blogTitle VARCHAR(100) NOT NULL,
 	blogAuthor VARCHAR(30) NOT NULL,
 	blogPost TEXT NOT NULL

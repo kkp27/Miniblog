@@ -6,47 +6,47 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.miniblog.model.User;
-import com.miniblog.repository.UserRepository;
 import com.miniblog.service.UserService;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	UserRepository userrep;
+	UserService service;
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
-	public String login() {
-		return "login";
+	@RequestMapping(value = { "/", "/login" })
+	public ModelAndView login() {
+		return new ModelAndView("login");
 	}
+
+	 @RequestMapping(value = "/loginerror")
+	 public ModelAndView loginerror() {
+	 return new ModelAndView("login","error","Invalid username or password");
+	 }
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginCheck(@ModelAttribute User user, Model model, @RequestParam("error") String error) {
-		User obj = userrep.findByEmail(user.getEmail());
-		if (obj == null || error == null) {
-			model.addAttribute("error", "Invalid username or password");
-			return "redirect:/login";
+	public ModelAndView loginCheck(@ModelAttribute User user, Model model) {
+		User obj = service.findByEmail(user.getEmail());
+		if (obj == null) {
+			return new ModelAndView("loginerror");
 		}
-		return "redirect:/list";
+		return new ModelAndView("list", "uname", user.getEmail());
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register() {
-		return "register";
+	@RequestMapping(value = "/register")
+	public ModelAndView register() {
+		return new ModelAndView("register");
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerProcess(User user, Model model) {
-		User obj = userrep.findByEmail(user.getEmail());
-		if (obj != null) {
-			model.addAttribute("error", "Email already exists");
-			return "redirect:/register";
+	public ModelAndView registerProcess(@ModelAttribute User user) {
+		if (service.findByEmail(user.getEmail()) != null) {
+			return new ModelAndView("register", "error", "Email already exists");
 		}
-		userrep.save(obj);
-		model.addAttribute("message", "Registered successfully");
-		return "redirect:/login";
+		service.save(user);
+		return new ModelAndView("login", "message", "Registered successfully");
 	}
 }

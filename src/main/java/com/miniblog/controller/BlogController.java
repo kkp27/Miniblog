@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,10 @@ public class BlogController {
 	@RequestMapping(value = "/blog/list", method = RequestMethod.GET)
 	public ModelAndView getAll() {
 		List<Blog> blog = service.getAll();
+		if(blog == null){
+			String message = "No content !!";
+			return new ModelAndView("list", "message", message);
+		}
 		return new ModelAndView("list", "blog", blog);
 	}
 
@@ -35,6 +40,10 @@ public class BlogController {
 	@RequestMapping(value = "/blog/list/{title}", method = RequestMethod.GET)
 	public ModelAndView findByTitle(@PathVariable("title") String title) {
 		List<Blog> blog = service.getByTitle(title);
+		if(blog == null){
+			String message = "No record found";
+			return new ModelAndView("list", "message", message);
+		}
 		return new ModelAndView("list", "blog", blog);
 	}
 
@@ -49,14 +58,20 @@ public class BlogController {
 	@RequestMapping(value = "/blog/edit/{title}")
 	public ModelAndView edit(@PathVariable("title") String title) {
 		List<Blog> blog = service.getByTitle(title);
+		if(blog == null){
+			String message = "Error !!";
+			return new ModelAndView("list", "message", message);
+		}
 		return new ModelAndView("edit", "blog", blog);
 	}
 
 	@RequestMapping(value = "/blog/update/{id}", method = RequestMethod.POST)
-	public String update(@ModelAttribute Blog blog, @PathVariable("id") Integer id) throws IOException {
+	public String update(@ModelAttribute Blog blog, @PathVariable("id") Integer id, Model model) throws IOException {
 		Blog obj = service.getOneById(id);
-//		System.out.println(blog);
-//		System.out.println(id);
+		if(obj == null){
+			model.addAttribute("message", "Error !!");
+			return "redirect:/blog/list";
+		}
 		obj.setBlogTitle(blog.getBlogTitle());
 		obj.setBlogPost(blog.getBlogPost());
 		obj.setLastModifiedDate(LocalDate.now());
@@ -65,8 +80,12 @@ public class BlogController {
 	}
 
 	@RequestMapping(value = "/blog/delete/{title}")
-	public String delete(@PathVariable("title") String title) throws IOException {
+	public String delete(@PathVariable("title") String title, Model model) throws IOException {
 		List<Blog> blog = service.getByTitle(title);
+		if(blog == null){
+			model.addAttribute("message", "No record found");
+			return "redirect:/blog/list";
+		}
 		service.delete(blog);
 		return "redirect:/blog/list";
 	}

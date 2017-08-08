@@ -1,10 +1,22 @@
 package com.miniblog.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.miniblog.model.User;
+import com.miniblog.repository.UserRepository;
 
-public interface UserService  {
+@Service
+public class UserService {
 
-	User findUserByEmail(String email);
+	@Autowired
+	UserRepository userrep;
 	
-	void saveUser(User user);
+	public User findByEmail(String email){
+		return userrep.findByEmail(email);
+	}
+	
+	public void save(User user){
+		userrep.save(user);
+	}
 }

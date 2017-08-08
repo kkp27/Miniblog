@@ -23,7 +23,6 @@
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 			<a href="/blog/list" class="btn btn-default" role="button">Cancel</a>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		</form>
 	</div>
 </body>
