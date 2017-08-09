@@ -1,8 +1,11 @@
 package com.miniblog.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +25,10 @@ public class UserController {
 		return new ModelAndView("login");
 	}
 
-	 @RequestMapping(value = "/loginerror")
-	 public ModelAndView loginerror() {
-	 return new ModelAndView("login","error","Invalid username or password");
-	 }
+	@RequestMapping(value = "/loginerror")
+	public ModelAndView loginerror() {
+		return new ModelAndView("login", "error", "Invalid username or password");
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginCheck(@ModelAttribute User user, Model model) {
@@ -37,14 +40,23 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/register")
-	public ModelAndView register() {
-		return new ModelAndView("register");
+	public String register(Model model) {
+		model.addAttribute("registration", new User());
+		return "register";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerProcess(@ModelAttribute User user) {
+	public ModelAndView registerProcess(@Valid @ModelAttribute("registration") User user, BindingResult result) {
+		if (result.hasErrors()) {
+			return new ModelAndView("register");
+		}
+
 		if (service.findByEmail(user.getEmail()) != null) {
-			return new ModelAndView("register", "error", "Email already exists");
+			return new ModelAndView("register", "error1", "Email already exists");
+		}
+		
+		if(! user.getPassword().equals(user.getConfirmPassword())){
+			return new ModelAndView("register", "error2" , "Password values do not match");
 		}
 		service.save(user);
 		return new ModelAndView("login", "message", "Registered successfully");
