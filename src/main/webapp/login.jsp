@@ -14,7 +14,7 @@
 	<c:if test="${not empty error}">
 		<div class="alert alert-danger" align="center">${error}</div>
 	</c:if>
-	<h2 align="center">Login</h2>
+	<h2 align="center">Login</h2> <hr>
 	<div class="container" style="width: 400px" align="center">
 		<form method="post" action="/login">
 			<div class="form-group" align="left">
@@ -23,7 +23,7 @@
 			</div>
 
 			<div class="form-group" align="left">
-				<label for="pwd">Password:</label> <input type="password"
+				<label for="pwd">Password</label> <input type="password"
 					class="form-control" id="password" name="password"
 					required="required">
 			</div>

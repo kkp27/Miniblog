@@ -17,41 +17,35 @@
 	<c:if test="${not empty error1}">
 		<div class="alert alert-danger" align="center">${error1}</div>
 	</c:if>
-	<div class="container" align="center">
-		<h2>Registration</h2>
+	<h2 align="center">Registration</h2>
+	<hr>
+	<div class="container" style="width: 400px" align="center">
 		<form:form method="post" action="/register" commandName="registration"
 			cssClass="form-horizontal">
 			<div class="form-group" align="left">
-				<div class="col-md-4">
-					<label for="email" class="control-label">Email</label>
-					<form:input path="email" cssClass="form-control" />
-					<form:errors path="email" cssClass="error" />
-				</div>
+				<label for="email">Email</label>
+				<form:input path="email" cssClass="form-control" />
+				<form:errors path="email" cssClass="error" />
+			</div>
+
+			<div class="form-group" align="left">
+				<label for="Username">Username</label>
+				<form:input path="username" cssClass="form-control" />
+				<form:errors path="username" cssClass="error" />
 			</div>
 			<div class="form-group" align="left">
-				<div class="col-md-4">
-					<label for="Username" class="control-label">Username</label>
-					<form:input path="username" cssClass="form-control" />
-					<form:errors path="username" cssClass="error" />
-				</div>
+				<label for="Password">Password</label>
+				<form:password path="password" cssClass="form-control" />
+				<form:errors path="password" cssClass="error" />
 			</div>
 			<div class="form-group" align="left">
-				<div class="col-md-4">
-					<label for="Password" class="control-label">Password</label>
-					<form:password path="password" cssClass="form-control" />
-					<form:errors path="password" cssClass="error" />
-				</div>
-			</div>
-			<div class="form-group" align="left">
-				<div class="col-md-4">
-					<label for="Confirm Password" class="control-label">Confirm
-						Password</label>
-					<form:password path="confirmPassword" cssClass="form-control" />
-					<form:errors path="confirmPassword" cssClass="error" />
-					<c:if test="${not empty error2}">
-						<span class="error">${error2}</span>
-					</c:if>
-				</div>
+				<label for="Confirm Password">Confirm
+					Password</label>
+				<form:password path="confirmPassword" cssClass="form-control" />
+				<form:errors path="confirmPassword" cssClass="error" />
+				<c:if test="${not empty error2}">
+					<span class="error">${error2}</span>
+				</c:if>
 			</div>
 			<button type="submit" class="btn btn-default">Register</button>
 			<a href="/login" class="btn btn-default" role="button"

@@ -36,7 +36,8 @@ public class UserController {
 		if (obj == null) {
 			return new ModelAndView("loginerror");
 		}
-		return new ModelAndView("list", "uname", user.getEmail());
+		String welcome="Welcome " + user.getEmail();
+		return new ModelAndView("list", "welcome", welcome);
 	}
 
 	@RequestMapping(value = "/register")
