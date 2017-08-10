@@ -19,11 +19,11 @@
 						class="form-control" id="blogTitle" name="blogTitle"
 						value="${blist.blogTitle}" required="required">
 				</div>
-				<div class="form-group">
+<%-- 				<div class="form-group">
 					<label for="author">Author</label> <input type="text"
 						class="form-control" id="blogAuthor" name="blogAuthor"
 						value="${blist.blogAuthor}" required="required" disabled="disabled">
-				</div>
+				</div> --%>
 				<div class="form-group">
 					<label for="content">Post</label>
 					<textarea class="form-control" rows="10" id="blogPost" name="blogPost" required="required"> ${blist.blogPost} </textarea>
