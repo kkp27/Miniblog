@@ -31,13 +31,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView loginCheck(@ModelAttribute User user, Model model) {
+	public ModelAndView loginCheck(@ModelAttribute User user) {
 		User obj = service.findByEmail(user.getEmail());
 		if (obj == null) {
 			return new ModelAndView("loginerror");
 		}
-		String welcome="Welcome " + user.getEmail();
-		return new ModelAndView("list", "welcome", welcome);
+		return new ModelAndView("list/"+user.getUsername());
 	}
 
 	@RequestMapping(value = "/register")

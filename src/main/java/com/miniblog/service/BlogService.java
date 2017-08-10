@@ -14,8 +14,8 @@ public class BlogService  {
 	@Autowired
 	BlogRepository blogrep;
 	
-	public List<Blog> getAll(){
-		List<Blog> blog = blogrep.findAll();
+	public List<Blog> getAllByUser(String username){
+		List<Blog> blog = blogrep.findAllByUSer(username);
 		return blog;
 	}
 	

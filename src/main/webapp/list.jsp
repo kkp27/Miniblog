@@ -15,7 +15,6 @@
 					style="margin-top: 10px" />
 			</form>
 		</div>
-		<c:if test="${not empty welcome}">${welcome}</c:if>
 		<a href="/blog/create" class="btn btn-default" role="button">
 			Create </a>
 		<hr>
@@ -29,7 +28,6 @@
 							<c:out value="Created on:"></c:out>${blist.createdDate}
 							<br>
 							<c:out value="Last modified on: ">${blist.lastModifiedDate}</c:out>
-
 						</div>
 						<div class="panel-body">${blist.blogPost}</div>
 						<div>
@@ -40,9 +38,9 @@
 					</div>
 				</c:forEach>
 			</c:when>
-			<c:when test="${empty welcome}">
+			<c:otherwise>
        No records !!
-    </c:when>
+    </c:otherwise>
 		</c:choose>
 	</div>
 </body>

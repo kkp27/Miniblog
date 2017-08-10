@@ -22,9 +22,10 @@ public class BlogController {
 	@Autowired
 	BlogService service;
 
-	@RequestMapping(value = "/blog/list", method = RequestMethod.GET)
-	public ModelAndView getAll() {
-		List<Blog> blog = service.getAll();
+	@RequestMapping(value = "/blog/list/{username}", method = RequestMethod.GET)
+	public ModelAndView getAllUSer(@PathVariable("username") String username) {
+		System.out.println(username);
+		List<Blog> blog = service.getAllByUser(username);
 		if(blog == null){
 			String message = "No content !!";
 			return new ModelAndView("list", "message", message);
@@ -37,15 +38,16 @@ public class BlogController {
 		return new ModelAndView("create");
 	}
 
-	@RequestMapping(value = "/blog/list/{title}", method = RequestMethod.GET)
-	public ModelAndView findByTitle(@PathVariable("title") String title) {
-		List<Blog> blog = service.getByTitle(title);
-		if(blog == null){
-			String message = "No record found";
-			return new ModelAndView("list", "message", message);
-		}
-		return new ModelAndView("list", "blog", blog);
-	}
+//	@RequestMapping(value = "/blog/list/{title}", method = RequestMethod.GET)
+//	public ModelAndView findByTitle(@PathVariable("title") String title) {
+//		System.out.println(title);
+//		List<Blog> blog = service.getByTitle(title);
+//		if(blog == null){
+//			String message = "No record found";
+//			return new ModelAndView("list", "message", message);
+//		}
+//		return new ModelAndView("list", "blog", blog);
+//	}
 
 	@RequestMapping(value = "/blog/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute Blog blog) throws IOException {
